@@ -1,4 +1,4 @@
-NOMBRE_EJECUTABLE=modulo1
+NOMBRE_EJECUTABLE=modulo2
 CC = gcc
 CFLAGS = -g -Wall
 LIBS = -lcommons -lpthread -lreadline
