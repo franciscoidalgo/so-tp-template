@@ -1,0 +1,14 @@
+
+#binarios y objs
+*/bin/*
+!*/bin/.gitkeep
+*/obj/*
+!*/obj/.gitkeep
+
+#logs
+*.log
+
+#repos utnso
+so-commons-library/*
+
+so-nivel-gui-library/*
