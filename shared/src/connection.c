@@ -24,7 +24,7 @@ struct addrinfo* generar_info(char* ip, char* puerto){
     hints.ai_flags = AI_PASSIVE;
 
     if(getaddrinfo(ip, puerto, &hints, &serv_info) != SUCCESS)
-        perror("Error generando informacion para la ip y el puerto deseados.");
+        perror("Error generando informacion para la ip y el puerto deseados");
     
     return serv_info; 
 }
@@ -35,7 +35,7 @@ int crear_conexion(char* ip, char* puerto){
     
     if(
         (socket_servidor = socket(serv_info->ai_family, serv_info->ai_socktype, serv_info->ai_protocol)) == FAILED
-        || connect(socket_servidor, serv_info->ai_addr, serv_info->ai_addrlen)
+        || connect(socket_servidor, serv_info->ai_addr, serv_info->ai_addrlen) == FAILED
     ) perror("Error creando conexion");
     freeaddrinfo(serv_info);
     
@@ -57,7 +57,7 @@ int iniciar_servidor (char* ip, char* puerto){
         break;
     }
     if(listen(socket_servidor, SOMAXCONN) == FAILED)
-        perror("Error iniciando el servidor.");    
+        perror("Error iniciando el servidor");    
     freeaddrinfo(serv_info);
     
     return socket_servidor;
@@ -66,9 +66,9 @@ int iniciar_servidor (char* ip, char* puerto){
 int esperar_cliente(int socket_servidor){
     int socket_cliente;
     struct sockaddr dir_cliente;
-    socklen_t tam_direccion;
+    int tam_direccion = sizeof(struct sockaddr_in);
 
-    socket_cliente = accept(socket_servidor, &dir_cliente, &tam_direccion);
+    socket_cliente = accept(socket_servidor, &dir_cliente,(socklen_t*) &tam_direccion);
 
     return socket_cliente;
 }
@@ -109,6 +109,8 @@ void enviar_paquete(int socket_cliente, t_package* paquete){
     memcpy(paquete_serializado + offset, paquete->buffer->stream, paquete->buffer->size);
     
     send(socket_cliente, paquete_serializado, calcular_tamanio_paquete(paquete), 0);
+
+    free(paquete_serializado);
 }
 
 void enviar_estudiante(int socket_cliente, t_estudiante* estudiante){

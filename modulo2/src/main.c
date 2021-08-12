@@ -5,9 +5,8 @@
 #include "../../shared/src/connection.h"
 
 int main (){
-    
-    int socket_servidor = crear_conexion("127.0.0.1", "4001");
-    
+    int socket_servidor = crear_conexion("127.0.0.1", "4444");
+
     op_code operation_code = recibir_codigo_operacion(socket_servidor);
     t_buffer* buffer = recibir_buffer(socket_servidor);
     t_estudiante* estudiante = deserializar_estudiante(buffer);
