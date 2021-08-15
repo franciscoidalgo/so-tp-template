@@ -23,6 +23,6 @@ done
 for MODULO in ${MODULOS[@]}
 do
     echo -e "\n\nBuilding ${MODULO}\n\n"
-    make -C $MODULO
+    make release -C $MODULO
     echo -e "\n\nDone!!!\n\n"
 done
