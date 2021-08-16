@@ -9,13 +9,13 @@
 
 #define SUCCESS 0
 
-//Variables globales
+//Global variables
 int done;
 command_t* commands;
 
 //Forward declarations
-int execute_line(char* line);
-void intialize_completion();
+static int execute_line(char* line);
+static void intialize_completion();
 
 //Public
 void init_console(char* nombre,command_t* _commands){
@@ -47,9 +47,9 @@ int console_exit(char* args){
     return 0;
 }
 
-//Private
+//Static
 
-char* command_name_generator(const char* text, int state){
+static char* command_name_generator(const char* text, int state){
     static int list_index, len;
     char* name;
 
@@ -64,16 +64,16 @@ char* command_name_generator(const char* text, int state){
     return NULL;
 }
 
-char** completion (const char* text, int start, int end){
+static char** completion (const char* text, int start, int end){
     rl_attempted_completion_over = 1;
     return rl_completion_matches(text, command_name_generator);
 }
 
-void intialize_completion(){
+static void intialize_completion(){
     rl_attempted_completion_function = completion;
 }
 
-command_t* find_command(char* name, command_t* commands){
+static command_t* find_command(char* name, command_t* commands){
     register int i;
     for(i =0; commands[i].name; i++)
         if(string_equals_ignore_case(name, commands[i].name))
@@ -81,7 +81,7 @@ command_t* find_command(char* name, command_t* commands){
     return ((command_t*) NULL);
 }
 
-int execute_line (char* line){
+static int execute_line (char* line){
     register int i = 0;
     command_t* command;
     char* word;

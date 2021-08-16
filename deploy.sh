@@ -1,7 +1,7 @@
 #!/bin/bash
 UTNSO_LIBRARIES=("so-commons-library" "so-nivel-gui-library")
 CWD=$PWD
-MODULOS=("modulo1" "modulo2")
+MODULOS=("modulo1" "modulo2" "moduloConsola")
 for UTNSO_LIB in ${UTNSO_LIBRARIES[@]}
 do
     echo -e "\n\nInstalling ${UTNSO_LIB}\n\n"

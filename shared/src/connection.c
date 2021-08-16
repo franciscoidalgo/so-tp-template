@@ -15,6 +15,12 @@
 #define SUCCESS 0
 #define FAILED -1
 
+//Estatico
+static int calcular_tamanio_paquete (t_package* paquete){
+    return (sizeof(op_code) + sizeof(uint32_t) + paquete->buffer->size);
+}
+
+//Publico
 struct addrinfo* generar_info(char* ip, char* puerto){
     struct addrinfo hints, *serv_info;
     
@@ -94,9 +100,6 @@ t_buffer* recibir_buffer (int socket_cliente){
     return buffer;
 }
 
-int calcular_tamanio_paquete (t_package* paquete){
-    return (sizeof(op_code) + sizeof(uint32_t) + paquete->buffer->size);
-}
 
 void enviar_paquete(int socket_cliente, t_package* paquete){
     void* paquete_serializado = malloc(calcular_tamanio_paquete(paquete));
